@@ -18,15 +18,14 @@ export default async function handler(request: NextApiRequest, response: NextApi
     const result = await axios().get(`/${type}/popular`, {
       params: {
         api_key: apiKey,
-        watch_region: 'US', 
-        language: 'en-US',
+        watch_region: 'US',
+        language: 'en-US'
       }
     });
     const data = parse(result.data.results, type as MediaType);
 
     response.status(200).json({ type: 'Success', data });
-  } catch (error) {
-    console.log(error.data);
+  } catch (error: any) {
     response.status(500).json({ type: 'Error', data: error.data });
   }
 }
